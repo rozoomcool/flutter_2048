@@ -12,8 +12,11 @@ class Cell extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.deepPurple, borderRadius: BorderRadius.circular(10),
-        boxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 3, spreadRadius: 1)]
+          color: Colors.indigo,
+          borderRadius: BorderRadius.circular(8),
+          // boxShadow: const [
+          //   BoxShadow(color: Colors.black54, blurRadius: 3)
+          // ]
       ),
       child: Center(
         child: Text(
