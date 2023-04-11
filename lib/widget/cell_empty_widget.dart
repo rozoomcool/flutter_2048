@@ -15,5 +15,4 @@ class CellEmpty extends StatelessWidget{
       )
     );
   }
-
 }
