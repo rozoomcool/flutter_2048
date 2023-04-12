@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../domain/consts.dart';
+
 class CellEmpty extends StatelessWidget{
   const CellEmpty({super.key});
 
@@ -7,12 +9,13 @@ class CellEmpty extends StatelessWidget{
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.blueGrey.shade200,
-        borderRadius: BorderRadius.circular(8),
-        // boxShadow: const [
-        //   BoxShadow(color: Colors.black54, blurRadius: 3)
-        // ]
-      )
+          color: context.findAncestorWidgetOfExactType<MaterialApp>()?.theme?.scaffoldBackgroundColor,
+          boxShadow: [
+            blurShadow(
+                Colors.blueGrey, 1, 0),
+          ],
+          border: Border.all(width: 3, color: Colors.blueGrey),
+          borderRadius: BorderRadius.circular(8))
     );
   }
 }

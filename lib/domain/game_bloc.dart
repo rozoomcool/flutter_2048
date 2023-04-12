@@ -14,6 +14,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<GameMoveLeftEvent>(_moveLeft);
     on<GameMoveDownEvent>(_moveDown);
     on<GameMoveUpEvent>(_moveUp);
+    on<GameRefreshEvent>(_gameRefreshEvent);
+    add(GameGenerateNewTileEvent());
+  }
+
+  void _gameRefreshEvent(GameRefreshEvent event, Emitter<GameState> emit){
+    emit(GameState.standard());
     add(GameGenerateNewTileEvent());
   }
 
@@ -41,6 +47,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       }
     }
     if (moved) {
+      checkMax();
       add(GameGenerateNewTileEvent());
       emit(GameState.fromState(state));
     }
@@ -70,6 +77,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       }
     }
     if (moved) {
+      checkMax();
       add(GameGenerateNewTileEvent());
       emit(GameState.fromState(state));
     }
@@ -100,6 +108,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
 
     if (moved) {
+      checkMax();
       add(GameGenerateNewTileEvent());
       emit(GameState.fromState(state));
     }
@@ -189,6 +198,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
 
     if (moved) {
+      checkMax();
       add(GameGenerateNewTileEvent());
       emit(GameState.fromState(state));
     }
@@ -224,5 +234,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   void updateStateFromState(Emitter<GameState> emit) {
     emit(GameState.fromState(state));
+  }
+  void checkMax() {
+    if (state.score > state.currentMax){
+      state.currentMax = state.score;
+    }
   }
 }

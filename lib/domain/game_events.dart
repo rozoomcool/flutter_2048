@@ -8,6 +8,8 @@ class GameMoveLeftEvent extends GameEvent{}
 
 class GameMoveRightEvent extends GameEvent{}
 
+class GameRefreshEvent extends GameEvent{}
+
 class GameDragEvent extends GameEvent{
   final double x;
   final double y;
