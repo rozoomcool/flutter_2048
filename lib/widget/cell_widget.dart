@@ -1,33 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:tilesgame/domain/consts.dart';
 
-class Cell extends StatelessWidget {
+class Cell extends StatefulWidget {
   final int value;
 
   const Cell({super.key, required this.value});
 
-  // final textStyle = const TextStyle(
-  //     color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold);
+  @override
+  State<Cell> createState() => _CellState();
+}
 
+class _CellState extends State<Cell> {
+  // final textStyle = const TextStyle(
   @override
   Widget build(BuildContext context) {
-    final Color color = value == 2
+    final Color color = widget.value == 2
         ? Colors.teal
-        : value == 4
+        : widget.value == 4
             ? Colors.green
-            : value == 8
+            : widget.value == 8
                 ? Colors.tealAccent
-                : value == 16
+                : widget.value == 16
                     ? Colors.lightGreen
-                    : value == 32
+                    : widget.value == 32
                         ? Colors.indigo
-                        : value == 64
+                        : widget.value == 64
                             ? Colors.blue
-                            : value == 128
+                            : widget.value == 128
                                 ? Colors.purple
-                                : value == 256
+                                : widget.value == 256
                                     ? Colors.amber
-                                    : value == 512
+                                    : widget.value == 512
                                         ? Colors.red
                                         : Colors.pink;
 
@@ -45,7 +48,7 @@ class Cell extends StatelessWidget {
           borderRadius: BorderRadius.circular(8)),
       child: Center(
         child: Text(
-          '$value',
+          '${widget.value}',
           style: gameTileText.copyWith(color: color),
         ),
       ),

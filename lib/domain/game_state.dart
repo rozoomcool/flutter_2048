@@ -3,12 +3,14 @@ class GameState {
   late final int CELLS_COUNT;
   int score;
   int currentMax;
+  bool isGameOver;
 
   late List<List<int>> cells;
 
   GameState.standard()
       : GRID_SIZE = 4,
         currentMax = 0,
+        isGameOver = false,
         score = 0 {
     CELLS_COUNT = GRID_SIZE * GRID_SIZE;
     cells = List.generate(
@@ -20,5 +22,6 @@ class GameState {
         CELLS_COUNT = state.CELLS_COUNT,
         cells = state.cells,
         currentMax = 0,
-        score = state.score;
+        score = state.score,
+        isGameOver = state.isGameOver;
 }

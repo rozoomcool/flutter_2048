@@ -4,6 +4,10 @@ const TextStyle gameTabletText = TextStyle(fontWeight: FontWeight.bold,
     fontSize: 25,
     color: Colors.white, fontFamily: 'PressStart2P');
 
+const TextStyle gameWarnText = TextStyle(fontWeight: FontWeight.bold,
+    fontSize: 35,
+    color: Colors.orange, fontFamily: 'PressStart2P', shadows: [BoxShadow(color: Colors.red, blurRadius: 45, spreadRadius: 3)]);
+
 const TextStyle gameTileText = TextStyle(fontWeight: FontWeight.bold,
     fontSize: 20,
     color: Colors.white, fontFamily: 'PressStart2P');

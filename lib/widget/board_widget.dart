@@ -5,6 +5,7 @@ import 'package:tilesgame/domain/game_events.dart';
 import 'package:tilesgame/domain/game_state.dart';
 import 'package:tilesgame/widget/cell_empty_widget.dart';
 import 'package:tilesgame/widget/cell_widget.dart';
+import 'package:tilesgame/widget/gameover_widget.dart';
 
 import '../domain/consts.dart';
 
@@ -35,23 +36,28 @@ class Board extends StatelessWidget {
               border: Border.all(width: 3, color: neonColor),
               borderRadius: BorderRadius.circular(8)),
           padding: const EdgeInsets.all(8.0),
-          child: GridView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: state.GRID_SIZE,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 8),
-            itemCount: state.CELLS_COUNT,
-            itemBuilder: (BuildContext context, int index) {
-              int row = index ~/ state.cells.length;
-              int col = index % state.cells.length;
-              return AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 300),
-                  child: state.cells[row][col] != 0
-                      ? Cell(value: state.cells[row][col])
-                      : const CellEmpty());
-            },
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: state.GRID_SIZE,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8),
+              itemCount: state.CELLS_COUNT,
+              itemBuilder: (BuildContext context, int index) {
+                int row = index ~/ state.cells.length;
+                int col = index % state.cells.length;
+                return AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    child: state.cells[row][col] != 0
+                        ? Cell(key: UniqueKey(),value: state.cells[row][col])
+                        : const CellEmpty());
+              },
+            ),
+              state.isGameOver ? const GameOver() : Container()],
           ),
         ),
       ),

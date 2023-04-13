@@ -15,12 +15,58 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<GameMoveDownEvent>(_moveDown);
     on<GameMoveUpEvent>(_moveUp);
     on<GameRefreshEvent>(_gameRefreshEvent);
+    on<GameOverEvent>(_checkGameOverEvent);
     add(GameGenerateNewTileEvent());
   }
 
-  void _gameRefreshEvent(GameRefreshEvent event, Emitter<GameState> emit){
+  void _gameRefreshEvent(GameRefreshEvent event, Emitter<GameState> emit) {
     emit(GameState.standard());
     add(GameGenerateNewTileEvent());
+  }
+
+  void _checkGameOverEvent(GameOverEvent event, Emitter<GameState> emit) {
+    // for (int i = 0; i < state.cells.length; i++) {
+    //   for (int j = 0; j < state.cells[i].length - 1; j++) {
+    //     if (state.cells[i][j] == state.cells[i][j + 1]) {
+    //       break;
+    //     }
+    //   }
+    // }
+    //
+    // for (int i = 0; i < state.cells.length; i++) {
+    //   for (int j = state.cells[i].length - 2; j >= 0; j--) {
+    //     if (state.cells[i][j] == state.cells[i][j + 1]) {
+    //       break;
+    //     }
+    //   }
+    // }
+    //
+    // for (int i = 0; i < state.cells.length - 1; i++) {
+    //   for (int j = 0; j < state.cells[i].length; j++) {
+    //     if (state.cells[i][j] == state.cells[i + 1][j]) {
+    //       break;
+    //     }
+    //   }
+    // }
+    for(int row = 0; row < state.cells.length-1; row++){
+      for(int col = 0; col < state.cells.length-1; col++){
+        if(state.cells[row][col] == 0 || state.cells[row + 1][col + 1] == 0){
+          return;
+        }
+        if(state.cells[row][col] == state.cells[row + 1][col + 1]){
+          return;
+        }
+        if(state.cells[col][row] == 0 || state.cells[col + 1][row + 1] == 0){
+          return;
+        }
+        if(state.cells[col][row] == state.cells[col + 1][row + 1]){
+          return;
+        }
+      }
+    }
+
+    state.isGameOver = true;
+    emit(GameState.fromState(state));
   }
 
   void _moveRight(GameMoveRightEvent event, Emitter<GameState> emit) {
@@ -50,6 +96,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       checkMax();
       add(GameGenerateNewTileEvent());
       emit(GameState.fromState(state));
+    } else {
+      add(GameOverEvent());
     }
   }
 
@@ -80,6 +128,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       checkMax();
       add(GameGenerateNewTileEvent());
       emit(GameState.fromState(state));
+    } else {
+      add(GameOverEvent());
     }
   }
 
@@ -111,6 +161,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       checkMax();
       add(GameGenerateNewTileEvent());
       emit(GameState.fromState(state));
+    } else {
+      add(GameOverEvent());
     }
   }
 
@@ -201,6 +253,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       checkMax();
       add(GameGenerateNewTileEvent());
       emit(GameState.fromState(state));
+    } else {
+      add(GameOverEvent());
     }
   }
 
@@ -235,8 +289,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   void updateStateFromState(Emitter<GameState> emit) {
     emit(GameState.fromState(state));
   }
+
   void checkMax() {
-    if (state.score > state.currentMax){
+    if (state.score > state.currentMax) {
       state.currentMax = state.score;
     }
   }
