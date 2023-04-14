@@ -36,11 +36,28 @@ class TabletWidget extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Icon(Icons.receipt, size: 40, color: recordColor),
+                            Icon(
+                              Icons.receipt,
+                              size: 30,
+                              color: recordColor,
+                              shadows: const [
+                                BoxShadow(
+                                    color: Colors.red,
+                                    blurRadius: 10,
+                                    spreadRadius: 5)
+                              ],
+                            ),
                             Text(
-                              '${state.currentMax}',
-                              style:
-                                  gameTabletText.copyWith(color: recordColor),
+                              '${state.record}',
+                              style: gameTabletText.copyWith(
+                                color: recordColor,
+                                shadows: [
+                                  const BoxShadow(
+                                      color: Colors.red,
+                                      blurRadius: 10,
+                                      spreadRadius: 5)
+                                ],
+                              ),
                             ),
                           ],
                         )),
@@ -72,29 +89,9 @@ class TabletWidget extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: Container(
-                                margin: const EdgeInsets.all(8.0),
-                                decoration: BoxDecoration(
-                                    color: context
-                                        .findAncestorWidgetOfExactType<
-                                            MaterialApp>()
-                                        ?.theme
-                                        ?.scaffoldBackgroundColor,
-                                    boxShadow: [
-                                      blurShadow(
-                                          neonShadowColor, neonBlur, neonSpread)
-                                    ],
-                                    border:
-                                        Border.all(width: 3, color: neonColor),
-                                    borderRadius: BorderRadius.circular(8)),
-                                padding: const EdgeInsets.all(8.0),
-                                child: const Align(
-                                    alignment: Alignment.center,
-                                    child: Icon(Icons.undo, size: 25))),
-                          ),
-                          Expanded(
                             child: GestureDetector(
-                              onTap: () => context.read<GameBloc>().add(GameRefreshEvent()),
+                              onTap: () =>
+                                  context.read<GameBloc>().add(GameUndoEvent()),
                               child: Container(
                                   margin: const EdgeInsets.all(8.0),
                                   decoration: BoxDecoration(
@@ -104,11 +101,39 @@ class TabletWidget extends StatelessWidget {
                                           ?.theme
                                           ?.scaffoldBackgroundColor,
                                       boxShadow: [
-                                        blurShadow(
-                                            neonShadowColor, neonBlur, neonSpread)
+                                        blurShadow(neonShadowColor, neonBlur,
+                                            neonSpread)
                                       ],
-                                      border:
-                                          Border.all(width: 3, color: neonColor),
+                                      border: Border.all(
+                                          width: 3, color: neonColor),
+                                      borderRadius: BorderRadius.circular(8)),
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: const Align(
+                                      alignment: Alignment.center,
+                                      child: Icon(Icons.undo, size: 25)
+                                      // Text('«', style: gameTileText)
+                                      )),
+                            ),
+                          ),
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () => context
+                                  .read<GameBloc>()
+                                  .add(GameRefreshEvent()),
+                              child: Container(
+                                  margin: const EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                      color: context
+                                          .findAncestorWidgetOfExactType<
+                                              MaterialApp>()
+                                          ?.theme
+                                          ?.scaffoldBackgroundColor,
+                                      boxShadow: [
+                                        blurShadow(neonShadowColor, neonBlur,
+                                            neonSpread)
+                                      ],
+                                      border: Border.all(
+                                          width: 3, color: neonColor),
                                       borderRadius: BorderRadius.circular(8)),
                                   padding: const EdgeInsets.all(8.0),
                                   child: const Align(

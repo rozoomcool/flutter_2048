@@ -1,8 +1,11 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 class GameState {
   final int GRID_SIZE;
   late final int CELLS_COUNT;
   int score;
   int currentMax;
+  int record = 0;
   bool isGameOver;
 
   late List<List<int>> cells;
@@ -22,6 +25,7 @@ class GameState {
         CELLS_COUNT = state.CELLS_COUNT,
         cells = state.cells,
         currentMax = 0,
+        record = state.record,
         score = state.score,
         isGameOver = state.isGameOver;
 }

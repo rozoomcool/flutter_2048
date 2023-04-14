@@ -14,7 +14,7 @@ const TextStyle gameTileText = TextStyle(fontWeight: FontWeight.bold,
 
 const TextStyle gameCopyrightText = TextStyle(fontWeight: FontWeight.bold,
     fontSize: 18,
-    color: Colors.white, fontFamily: 'PressStart2P');
+    color: Colors.orange, shadows: [BoxShadow(color: Colors.red, blurRadius: 10, spreadRadius: 5)], fontFamily: 'PressStart2P');
 
 Color neonShadowColor = Colors.red.withOpacity(0.5);
 
